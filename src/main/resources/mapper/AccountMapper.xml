@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingyx.dao.AccountMapper" >
+  <resultMap id="BaseResultMap" type="com.jingyx.entity.Account" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="account_num" property="accountNum" jdbcType="VARCHAR" />
+    <result column="account_type" property="accountType" jdbcType="TINYINT" />
+    <result column="quota" property="quota" jdbcType="REAL" />
+    <result column="cost_type" property="costType" jdbcType="TINYINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account_num, account_type, quota, cost_type, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingyx.entity.Account" >
+    insert into account (id, account_num, account_type, 
+      quota, cost_type, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{accountNum,jdbcType=VARCHAR}, #{accountType,jdbcType=TINYINT}, 
+      #{quota,jdbcType=REAL}, #{costType,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jingyx.entity.Account" >
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="accountNum != null" >
+        account_num,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="quota != null" >
+        quota,
+      </if>
+      <if test="costType != null" >
+        cost_type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="accountNum != null" >
+        #{accountNum,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=TINYINT},
+      </if>
+      <if test="quota != null" >
+        #{quota,jdbcType=REAL},
+      </if>
+      <if test="costType != null" >
+        #{costType,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingyx.entity.Account" >
+    update account
+    <set >
+      <if test="accountNum != null" >
+        account_num = #{accountNum,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        account_type = #{accountType,jdbcType=TINYINT},
+      </if>
+      <if test="quota != null" >
+        quota = #{quota,jdbcType=REAL},
+      </if>
+      <if test="costType != null" >
+        cost_type = #{costType,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jingyx.entity.Account" >
+    update account
+    set account_num = #{accountNum,jdbcType=VARCHAR},
+      account_type = #{accountType,jdbcType=TINYINT},
+      quota = #{quota,jdbcType=REAL},
+      cost_type = #{costType,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteBatch">
+    delete from account where id in
+    <foreach collection="ids" open=" (" item="id" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+</mapper>
