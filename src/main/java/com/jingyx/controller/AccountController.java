@@ -24,33 +24,33 @@ public class AccountController {
 	@ApiOperation(value="新增账单")
 	public ReturnMsg addAccount(@RequestBody Account account){
 		int i = accountService.addAccount(account);
-		return new ReturnMsg(200, "新增账单成功");
+		return new ReturnMsg(200, "新增账单成功", account);
 	}
 
 	@PostMapping("update")
 	@ApiOperation(value="修改账单")
 	public ReturnMsg updateAccount(@RequestBody Account account){
 		int i = accountService.updateAccount(account);
-		return new ReturnMsg(200, "修改账单成功");
+		return new ReturnMsg(200, "修改账单成功", account);
 	}
 
 	@PostMapping("delete")
 	@ApiOperation(value="删除账单")
-	public ReturnMsg deleteAccount(Integer id){
+	public ReturnMsg deleteAccount(@RequestParam("id") Integer id){
 		int i = accountService.deleteAccount(id);
 		return new ReturnMsg(200, "删除账单成功");
 	}
 
 	@PostMapping("deleteBatch")
 	@ApiOperation(value="批量删除账单")
-	public ReturnMsg deleteBatch(List<Integer> ids){
+	public ReturnMsg deleteBatch(@RequestParam("ids") List<Integer> ids){
 		int i = accountService.deleteBatchAccount(ids);
 		return new ReturnMsg(200, "删除账单成功");
 	}
 
 	@GetMapping("queryAccount")
 	@ApiOperation(value="查询账单")
-	public ReturnMsg queryAccount(Integer id){
+	public ReturnMsg queryAccount(@RequestParam("id") Integer id){
 		Account account = accountService.queryAccount(id);
 		return new ReturnMsg(200, "查询账单信息成功", account);
 	}
