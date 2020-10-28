@@ -8,9 +8,10 @@
     <result column="quota" property="quota" jdbcType="REAL" />
     <result column="cost_type" property="costType" jdbcType="TINYINT" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, account_num, account_type, quota, cost_type, remark
+    id, account_num, account_type, quota, cost_type, remark, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

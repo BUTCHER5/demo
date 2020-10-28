@@ -32,3 +32,6 @@ CREATE TABLE `account`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+/*给account表添加字段create_time 2020-09-30 20:55:00*/
+ALTER TABLE account ADD COLUMN create_time datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
