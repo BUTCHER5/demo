@@ -1,5 +1,7 @@
 package com.jingyx.utils;
 
+import lombok.Data;
+
 /**
  * TODO
  * 返回对象
@@ -7,6 +9,7 @@ package com.jingyx.utils;
  * @version 1.0
  * @date 2020/9/30 13:48
  */
+@Data
 public class ReturnMsg {
 	// 返回码
 	private Integer code;
@@ -29,27 +32,4 @@ public class ReturnMsg {
 		this.data = data;
 	}
 
-	public Integer getCode() {
-		return code;
-	}
-
-	public void setCode(Integer code) {
-		this.code = code;
-	}
-
-	public String getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
-	public Object getData() {
-		return data;
-	}
-
-	public void setData(Object data) {
-		this.data = data;
-	}
 }

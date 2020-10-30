@@ -23,7 +23,8 @@ public class AccountController {
 	@PostMapping("add")
 	@ApiOperation(value="新增账单")
 	public ReturnMsg addAccount(@RequestBody Account account){
-		int i = accountService.addAccount(account);
+		accountService.addAccount(account);
+		log.info("新增账单成功");
 		return new ReturnMsg(200, "新增账单成功", account);
 	}
 
