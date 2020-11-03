@@ -75,8 +75,7 @@
         注:当有多处指定了要记录的日志的最下日志级别时，走优先级最高的，优先级:
            logback-spring.xml中 > 启动jar包时 > xxx.properties/xxx.yml中
     -->
-    <!--<logger name="com" level="trace">-->
-    <logger name="com">
+    <logger name="com" level="info">
         <!-- 指定使用哪个appender -->
         <appender-ref ref="fileAppender" />
     </logger>

@@ -1,5 +1,6 @@
 package com.jingyx.service;
 
+import com.github.pagehelper.PageInfo;
 import com.jingyx.entity.Account;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface IAccountService {
 	int deleteAccount(Integer id);
 
 	int deleteBatchAccount(List<Integer> ids);
+
+	PageInfo<Account> getAccountList(Integer pageNum, Integer pageSize);
 
 }

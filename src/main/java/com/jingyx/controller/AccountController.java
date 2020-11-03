@@ -1,5 +1,6 @@
 package com.jingyx.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.jingyx.entity.Account;
 import com.jingyx.service.IAccountService;
 import com.jingyx.utils.ReturnMsg;
@@ -50,10 +51,17 @@ public class AccountController {
 	}
 
 	@GetMapping("queryAccount")
-	@ApiOperation(value="查询账单")
+	@ApiOperation(value="查询账单信息")
 	public ReturnMsg queryAccount(@RequestParam("id") Integer id){
 		Account account = accountService.queryAccount(id);
 		return new ReturnMsg(200, "查询账单信息成功", account);
+	}
+
+	@GetMapping("getAccountList")
+	@ApiOperation(value="账单分页列表")
+	public ReturnMsg getAccountList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize){
+		PageInfo<Account> accountList = accountService.getAccountList(pageNum, pageSize);
+		return new ReturnMsg(200, "查询账单信息成功", accountList);
 	}
 
 }

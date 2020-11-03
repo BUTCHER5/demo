@@ -18,4 +18,6 @@ public interface AccountMapper {
     int updateByPrimaryKey(Account record);
 
     int deleteBatch(List<Integer> ids);
+
+    List<Account> getAccountPage();
 }

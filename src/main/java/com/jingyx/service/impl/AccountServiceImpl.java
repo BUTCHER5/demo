@@ -1,5 +1,7 @@
 package com.jingyx.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jingyx.dao.AccountMapper;
 import com.jingyx.entity.Account;
 import com.jingyx.service.IAccountService;
@@ -37,5 +39,13 @@ public class AccountServiceImpl implements IAccountService {
 	@Override
 	public int deleteBatchAccount(List<Integer> ids) {
 		return accountMapper.deleteBatch(ids);
+	}
+
+	@Override
+	public PageInfo<Account> getAccountList(Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Account> userList = accountMapper.getAccountPage();
+		PageInfo<Account> userPage = new PageInfo<>(userList);
+		return userPage;
 	}
 }
