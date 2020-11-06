@@ -1,6 +1,7 @@
 package com.jingyx.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.jingyx.annotation.SystemLogAnno;
 import com.jingyx.entity.Account;
 import com.jingyx.service.IAccountService;
 import com.jingyx.utils.ReturnMsg;
@@ -32,30 +33,30 @@ public class AccountController {
 
 	@PostMapping("add")
 	@ApiOperation(value="新增账单")
+	@SystemLogAnno(module = "账单", action = "新增")
 	public ReturnMsg addAccount(@RequestBody Account account){
 		accountService.addAccount(account);
-		log.info("新增账单成功");
 		return new ReturnMsg(200, "新增账单成功", account);
 	}
 
 	@PostMapping("update")
 	@ApiOperation(value="修改账单")
 	public ReturnMsg updateAccount(@RequestBody Account account){
-		int i = accountService.updateAccount(account);
+		accountService.updateAccount(account);
 		return new ReturnMsg(200, "修改账单成功", account);
 	}
 
 	@PostMapping("delete")
 	@ApiOperation(value="删除账单")
 	public ReturnMsg deleteAccount(@RequestParam("id") Integer id){
-		int i = accountService.deleteAccount(id);
+		accountService.deleteAccount(id);
 		return new ReturnMsg(200, "删除账单成功");
 	}
 
 	@PostMapping("deleteBatch")
 	@ApiOperation(value="批量删除账单")
 	public ReturnMsg deleteBatch(@RequestParam("ids") List<Integer> ids){
-		int i = accountService.deleteBatchAccount(ids);
+		accountService.deleteBatchAccount(ids);
 		return new ReturnMsg(200, "删除账单成功");
 	}
 

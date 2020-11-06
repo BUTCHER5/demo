@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingyx.dao.SystemLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jingyx.entity.SystemLog" >
+    <id column="log_id" property="logId" jdbcType="BIGINT" />
+    <result column="operator" property="operator" jdbcType="CHAR" />
+    <result column="oper_action" property="operAction" jdbcType="CHAR" />
+    <result column="oper_resut" property="operResut" jdbcType="CHAR" />
+    <result column="oper_info" property="operInfo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    log_id, operator, oper_action, oper_resut, oper_info, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jingyx.entity.SystemLog" >
+    insert into t_log (log_id, operator, oper_action, 
+      oper_resut, oper_info, create_time
+      )
+    values (#{logId,jdbcType=BIGINT}, #{operator,jdbcType=CHAR}, #{operAction,jdbcType=CHAR}, 
+      #{operResut,jdbcType=CHAR}, #{operInfo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jingyx.entity.SystemLog" useGeneratedKeys="true" keyProperty="logId" >
+    insert into t_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="operAction != null" >
+        oper_action,
+      </if>
+      <if test="operResut != null" >
+        oper_resut,
+      </if>
+      <if test="operInfo != null" >
+        oper_info,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=CHAR},
+      </if>
+      <if test="operAction != null" >
+        #{operAction,jdbcType=CHAR},
+      </if>
+      <if test="operResut != null" >
+        #{operResut,jdbcType=CHAR},
+      </if>
+      <if test="operInfo != null" >
+        #{operInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingyx.entity.SystemLog" >
+    update t_log
+    <set >
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=CHAR},
+      </if>
+      <if test="operAction != null" >
+        oper_action = #{operAction,jdbcType=CHAR},
+      </if>
+      <if test="operResut != null" >
+        oper_resut = #{operResut,jdbcType=CHAR},
+      </if>
+      <if test="operInfo != null" >
+        oper_info = #{operInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jingyx.entity.SystemLog" >
+    update t_log
+    set operator = #{operator,jdbcType=CHAR},
+      oper_action = #{operAction,jdbcType=CHAR},
+      oper_resut = #{operResut,jdbcType=CHAR},
+      oper_info = #{operInfo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+  <select id="queryList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_log
+  </select>
+</mapper>
