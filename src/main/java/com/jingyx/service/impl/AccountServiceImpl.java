@@ -42,7 +42,7 @@ public class AccountServiceImpl implements IAccountService {
 	}
 
 	@Override
-	public PageInfo<Account> queryList(Integer pageNum, Integer pageSize) {
+	public PageInfo<Account> queryPage(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<Account> userList = accountMapper.getAccountPage();
 		PageInfo<Account> userPage = new PageInfo<>(userList);

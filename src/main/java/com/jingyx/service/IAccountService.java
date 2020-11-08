@@ -17,6 +17,6 @@ public interface IAccountService {
 
 	int deleteBatch(List<Integer> ids);
 
-	PageInfo<Account> queryList(Integer pageNum, Integer pageSize);
+	PageInfo<Account> queryPage(Integer pageNum, Integer pageSize);
 
 }

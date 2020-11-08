@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * TODO
  * 日志控制器
@@ -32,13 +34,23 @@ public class SystemLogController {
 
 	@GetMapping("queryList")
 	@ApiOperation(value="分页日志列表")
-	public ReturnMsg queryList(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize,
+	public ReturnMsg queryPage(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize,
                                @RequestParam(value = "operator", required = false) String operator,
                                @RequestParam(value = "operAction", required = false) String operAction,
                                @RequestParam(value = "operResut", required = false) String operResut,
                                @RequestParam(value = "startTime", required = false) String startTime,
                                @RequestParam(value = "endTime", required = false) String endTime){
-		PageInfo<SystemLog> logList = systemLogService.queryList(pageNo, pageSize, operator, operAction, operResut, startTime, endTime);
+		PageInfo<SystemLog> logList = systemLogService.queryPage(pageNo, pageSize, operator, operAction, operResut, startTime, endTime);
 		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "查询日志信息成功", logList);
+	}
+
+	@GetMapping(value = "download")
+	@ApiOperation(value="日志备份")
+	public void logDownload(@RequestParam(value = "operator", required = false) String operator,
+							@RequestParam(value = "operAction", required = false) String operAction,
+							@RequestParam(value = "operResut", required = false) String operResut,
+							@RequestParam(value = "startTime", required = false) String startTime,
+							@RequestParam(value = "endTime", required = false) String endTime, HttpServletResponse response) {
+		systemLogService.download(operator, operAction, operResut, startTime, endTime, response);
 	}
 }

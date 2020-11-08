@@ -30,7 +30,7 @@ import java.util.Date;
 @Component
 @Aspect
 @Slf4j
-public class LogAspect {
+public class SystemLogAspect {
 
 	@Autowired
 	private ISystemLogService systemLogService;

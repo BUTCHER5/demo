@@ -74,11 +74,11 @@ public class AccountController {
 		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "查询账单信息成功", account);
 	}
 
-	@GetMapping("queryList")
+	@GetMapping("queryPage")
 	@ApiOperation(value="账单分页列表")
-	public ReturnMsg queryList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize){
-		PageInfo<Account> accountList = accountService.queryList(pageNum, pageSize);
-		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "查询账单信息成功", accountList);
+	public ReturnMsg queryPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize){
+		PageInfo<Account> accountPageInfo = accountService.queryPage(pageNum, pageSize);
+		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "查询账单信息成功", accountPageInfo);
 	}
 
 	@PostMapping("upload")
