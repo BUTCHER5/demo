@@ -7,16 +7,16 @@ import java.util.List;
 
 public interface IAccountService {
 
-	int addAccount(Account account);
+	int add(Account account);
 
-	int updateAccount(Account account);
+	int update(Account account);
 
-	Account queryAccount(Integer id);
+	Account queryOne(Integer id);
 
-	int deleteAccount(Integer id);
+	int delete(Integer id);
 
-	int deleteBatchAccount(List<Integer> ids);
+	int deleteBatch(List<Integer> ids);
 
-	PageInfo<Account> getAccountList(Integer pageNum, Integer pageSize);
+	PageInfo<Account> queryList(Integer pageNum, Integer pageSize);
 
 }

@@ -30,9 +30,11 @@ public class SystemLogServiceImpl implements ISystemLogService {
 	}
 
 	@Override
-	public PageInfo<SystemLog> queryList(Integer pageNo, Integer pageSize) {
+	public PageInfo<SystemLog> queryList(Integer pageNo, Integer pageSize,
+										 String operator, String operAction,
+										 String operResut, String startTime, String endTime) {
 		PageHelper.startPage(pageNo, pageSize);
-		List<SystemLog> logList = systemLogMapper.queryList();
+		List<SystemLog> logList = systemLogMapper.queryList(operator, operAction, operResut, startTime, endTime);
 		PageInfo<SystemLog> systemLogPageInfo = new PageInfo<>(logList);
 		return systemLogPageInfo;
 	}

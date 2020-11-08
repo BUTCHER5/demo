@@ -3,6 +3,7 @@ package com.jingyx.controller;
 import com.github.pagehelper.PageInfo;
 import com.jingyx.annotation.SystemLogAnno;
 import com.jingyx.entity.Account;
+import com.jingyx.enums.ReturnCodeEnum;
 import com.jingyx.service.IAccountService;
 import com.jingyx.utils.ReturnMsg;
 import io.swagger.annotations.Api;
@@ -21,7 +22,7 @@ import java.util.Map;
 
 @Api(tags={"用户账单控制器"})
 @RestController
-@RequestMapping("account")
+@RequestMapping("accountManage/account")
 @Slf4j
 public class AccountController {
 
@@ -34,48 +35,55 @@ public class AccountController {
 	@PostMapping("add")
 	@ApiOperation(value="新增账单")
 	@SystemLogAnno(module = "账单", action = "新增")
-	public ReturnMsg addAccount(@RequestBody Account account){
-		accountService.addAccount(account);
-		return new ReturnMsg(200, "新增账单成功", account);
+	public ReturnMsg add(@RequestBody Account account){
+		accountService.add(account);
+		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "新增账单成功", account);
 	}
 
 	@PostMapping("update")
 	@ApiOperation(value="修改账单")
-	public ReturnMsg updateAccount(@RequestBody Account account){
-		accountService.updateAccount(account);
-		return new ReturnMsg(200, "修改账单成功", account);
+	@SystemLogAnno(module = "账单", action = "修改")
+	public ReturnMsg update(@RequestBody Account account){
+		accountService.update(account);
+		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "修改账单成功", account);
 	}
 
 	@PostMapping("delete")
 	@ApiOperation(value="删除账单")
-	public ReturnMsg deleteAccount(@RequestParam("id") Integer id){
-		accountService.deleteAccount(id);
-		return new ReturnMsg(200, "删除账单成功");
+	@SystemLogAnno(module = "账单", action = "删除")
+	public ReturnMsg delete(@RequestParam("id") Integer id){
+		int delete = accountService.delete(id);
+		if (delete != 0)
+			return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "删除账单成功");
+		else
+			return new ReturnMsg(ReturnCodeEnum.ERROR.getCode(), "删除账单失败");
 	}
 
 	@PostMapping("deleteBatch")
 	@ApiOperation(value="批量删除账单")
+	@SystemLogAnno(module = "账单", action = "批量删除")
 	public ReturnMsg deleteBatch(@RequestParam("ids") List<Integer> ids){
-		accountService.deleteBatchAccount(ids);
-		return new ReturnMsg(200, "删除账单成功");
+		accountService.deleteBatch(ids);
+		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "删除账单成功");
 	}
 
-	@GetMapping("queryAccount")
+	@GetMapping("queryOne")
 	@ApiOperation(value="查询账单信息")
-	public ReturnMsg queryAccount(@RequestParam("id") Integer id){
-		Account account = accountService.queryAccount(id);
-		return new ReturnMsg(200, "查询账单信息成功", account);
+	public ReturnMsg queryOne(@RequestParam("id") Integer id){
+		Account account = accountService.queryOne(id);
+		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "查询账单信息成功", account);
 	}
 
-	@GetMapping("getAccountList")
+	@GetMapping("queryList")
 	@ApiOperation(value="账单分页列表")
-	public ReturnMsg getAccountList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize){
-		PageInfo<Account> accountList = accountService.getAccountList(pageNum, pageSize);
-		return new ReturnMsg(200, "查询账单信息成功", accountList);
+	public ReturnMsg queryList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize){
+		PageInfo<Account> accountList = accountService.queryList(pageNum, pageSize);
+		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "查询账单信息成功", accountList);
 	}
 
 	@PostMapping("upload")
 	@ApiOperation(value="模板上传")
+	@SystemLogAnno(module = "账单", action = "模板上传")
 	public ReturnMsg upload(MultipartFile file) {
 		//MultipartFile对象的名称必须和html中的文件上传标签的名字相同
 		if (file.getSize() == 0) return new ReturnMsg(400, "不能上传空文件");
@@ -89,12 +97,12 @@ public class AccountController {
 			File targetFile = new File(pathName);
 			file.transferTo(targetFile);
 			Account account = getAccountEntityFromTxt(targetFile);
-			accountService.addAccount(account);
+			accountService.add(account);
 		} catch (Exception e) {
 			log.error("文件内容不符合标准，请核查");
 			return new ReturnMsg(500, "文件内容不符合标准，请核查");
 		}
-		return new ReturnMsg(200, "上传成功");
+		return new ReturnMsg(ReturnCodeEnum.OK.getCode(), "上传成功");
 	}
 
 	/**

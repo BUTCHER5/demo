@@ -17,32 +17,32 @@ public class AccountServiceImpl implements IAccountService {
 	AccountMapper accountMapper;
 
 	@Override
-	public int addAccount(Account account) {
+	public int add(Account account) {
 		return accountMapper.insertSelective(account);
 	}
 
 	@Override
-	public int updateAccount(Account account) {
+	public int update(Account account) {
 		return accountMapper.updateByPrimaryKeySelective(account);
 	}
 
 	@Override
-	public Account queryAccount(Integer id) {
+	public Account queryOne(Integer id) {
 		return accountMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public int deleteAccount(Integer id) {
+	public int delete(Integer id) {
 		return accountMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public int deleteBatchAccount(List<Integer> ids) {
+	public int deleteBatch(List<Integer> ids) {
 		return accountMapper.deleteBatch(ids);
 	}
 
 	@Override
-	public PageInfo<Account> getAccountList(Integer pageNum, Integer pageSize) {
+	public PageInfo<Account> queryList(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<Account> userList = accountMapper.getAccountPage();
 		PageInfo<Account> userPage = new PageInfo<>(userList);

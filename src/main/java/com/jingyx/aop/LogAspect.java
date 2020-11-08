@@ -102,8 +102,10 @@ public class LogAspect {
 		} catch (SecurityException e1) {
 			log.error("ControllerLogAopAspect around error",e1);
 		}
+		boolean isAnno = false;
 		if (null != method) {
 			if (method.isAnnotationPresent(SystemLogAnno.class)) {
+				isAnno = true;
 				SystemLogAnno systemLogAnno = method.getAnnotation(SystemLogAnno.class);
 				systemLog.setOperator("诸葛亮");
 				systemLog.setOperAction(systemLogAnno.action());
@@ -115,13 +117,15 @@ public class LogAspect {
 		Object proceed = null;
 		try {
 			proceed =  proceedingJoinPoint.proceed();
-			ReturnMsg returnMsg = (ReturnMsg) proceed;
-			System.out.println(ReturnCodeEnum.OK.getCode() + "///" + returnMsg.getCode());
-			if (ReturnCodeEnum.OK.getCode().equals(returnMsg.getCode())) {
-				systemLog.setOperResut(ReturnCodeEnum.OK.getCodeMsg());
+			if (isAnno) {
+				ReturnMsg returnMsg = (ReturnMsg) proceed;
+				if (ReturnCodeEnum.OK.getCode().equals(returnMsg.getCode())) {
+					systemLog.setOperResut(ReturnCodeEnum.OK.getCodeMsg());
+				} else
+					systemLog.setOperResut(ReturnCodeEnum.ERROR.getCodeMsg());
+				systemLog.setCreateTime(new Date());
+				systemLogService.add(systemLog);
 			}
-			systemLog.setCreateTime(new Date());
-			systemLogService.add(systemLog);
 		} catch (Throwable throwable) {
 			throwable.printStackTrace();
 		}

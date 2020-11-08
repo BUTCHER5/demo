@@ -107,5 +107,19 @@
     select
     <include refid="Base_Column_List" />
     from t_log
+    <where>
+      <if test="operator != null">
+        and operator like concat('%',#{operator},'%')
+      </if>
+      <if test="operAction != null">
+        and oper_action like concat('%',#{operAction},'%')
+      </if>
+      <if test="operResut != null">
+        and oper_resut like concat('%',#{operResut},'%')
+      </if>
+      <if test="startTime != null and endTime != null">
+        and create_time &gt;= #{startTime} and create_time &lt;= #{endTime}
+      </if>
+    </where>
   </select>
 </mapper>

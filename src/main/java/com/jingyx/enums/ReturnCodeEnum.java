@@ -2,7 +2,8 @@ package com.jingyx.enums;
 
 public enum ReturnCodeEnum {
 
-	OK(200, "执行成功"),
+	OK(0, "执行成功"),
+	ERROR(-1, "执行失败"),
 	CLIENT_ERROR(400, "客户端出错了"),
 	SERVER_ERROR(500, "服务器出错了");
 

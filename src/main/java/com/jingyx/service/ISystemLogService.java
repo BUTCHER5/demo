@@ -7,5 +7,7 @@ public interface ISystemLogService {
 
 	int add(SystemLog log);
 
-	PageInfo<SystemLog> queryList(Integer pageNo, Integer pageSize);
+	PageInfo<SystemLog> queryList(Integer pageNo, Integer pageSize,
+								  String operator, String operAction,
+								  String operResut, String startTime, String endTime);
 }
