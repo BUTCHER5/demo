@@ -119,10 +119,8 @@ public class SystemLogAspect {
 			proceed =  proceedingJoinPoint.proceed();
 			if (isAnno) {
 				ReturnMsg returnMsg = (ReturnMsg) proceed;
-				if (ReturnCodeEnum.OK.getCode().equals(returnMsg.getCode())) {
-					systemLog.setOperResut(ReturnCodeEnum.OK.getCodeMsg());
-				} else
-					systemLog.setOperResut(ReturnCodeEnum.ERROR.getCodeMsg());
+				systemLog.setOperResut(ReturnCodeEnum.OK.getCode().equals(returnMsg.getCode())?
+						ReturnCodeEnum.OK.getCodeMsg():ReturnCodeEnum.ERROR.getCodeMsg());
 				systemLog.setCreateTime(new Date());
 				systemLogService.add(systemLog);
 			}

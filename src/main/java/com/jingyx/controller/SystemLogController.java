@@ -32,7 +32,7 @@ public class SystemLogController {
 	@Autowired
 	private ISystemLogService systemLogService;
 
-	@GetMapping("queryList")
+	@GetMapping("queryPage")
 	@ApiOperation(value="分页日志列表")
 	public ReturnMsg queryPage(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize,
                                @RequestParam(value = "operator", required = false) String operator,

@@ -103,9 +103,11 @@ public class SystemLogServiceImpl implements ISystemLogService {
 	private void writeSystemLog(List<SystemLog> systemLogs) {
 		BufferedWriter bufferedWriter = null;
 		try {
-			File file = new File(systemLogPath + systemLogName);
-			if (!file.exists()) file.createNewFile();
-			bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+			File filePath = new File(systemLogPath);
+			if (!filePath.exists()) filePath.mkdirs();
+			File filePathName = new File(systemLogPath + systemLogName);
+			if (!filePathName.exists()) filePathName.createNewFile();
+			bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePathName)));
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
 			for (SystemLog systemLog : systemLogs) {
 				bufferedWriter.write(simpleDateFormat.format(systemLog.getCreateTime()) +
